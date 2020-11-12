@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>ELLY CERAMICS</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'site/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'site/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link type="text/css" href="{% static 'site/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/line-awesome/css/line-awesome.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'site/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Serenity - v2.1.0
+  * Template URL: https://bootstrapmade.com/serenity-bootstrap-corporate-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+  
+   
+	  
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="{% url 'index.html'">ELLY CERAMICS</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li class="active"><a href="index.html">Home</a></li>
+
+          <li class="drop-down"><a href="#">About</a>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="team.html">Team</a></li>
+
+              <li class="drop-down"><a href="#">Drop Down 2</a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li><a href="{% url 'catalogue'%}">Catalogue</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+
+          <li class="get-started"><a href="#get-started">Get Started</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+  
+  
+<div style=" position:relative; top:90px;">
+<h1 style=" color:red;">Checkout</h1>
+<div class="container"> 
+	<div class="row">   
+    <div class="col-lg-2 col-sm-6">
+  <form action="." method="post" class="order-form">
+    {{ form.as_p }}
+    <p><input class = " btn btn-info btn-lg" type="submit" value="Place order"></p>
+    {% csrf_token %}
+  </form>
+  </div>
+  <div class="col-lg-3 col-sm-6">
+    <h3>Your order</h3>
+    <ul>
+      {% for item in cart %}
+        <li>
+          {{ item.quantity }}x {{ item.product.name }} 
+          <span>shs. {{ item.total_price }}</span>
+        </li>
+      {% endfor %}
+    </ul>
+    <p>Total: shs. {{ cart.get_total_price }}</p>
+  </div>
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+<div style="position:relative; top:130px; ">
+ <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="footer-top">
+      <div class="container">
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6 footer-info">
+            <h3>ELLY CERAMICS</h3>
+            <p>Its to our honour that you receive a comfortable zone thats why bring to you the best tiles,services,plumbing materials at very pocket friendly prices.Please we are so delighted for the time taken to visit the site.W e are sure u will be convinced</p>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-links">
+            <h4>Useful Links</h4>
+            <ul>
+              <li><a href="#">Home</a></li>
+              <li><a href="#">About us</a></li>
+              <li><a href="#">Services</a></li>
+              <li><a href="#">Terms of service</a></li>
+              <li><a href="#">Privacy policy</a></li>
+            </ul>
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-contact">
+            <h4>Contact Us</h4>
+            <p>
+              Buddu Street <br>
+              Masaka,  535022<br>
+              Uganda <br>
+              <strong>Phone:</strong> +256 758989094<br>
+              <strong>Email:</strong> Kizzaelias@gmail.com<br>
+            </p>
+
+            <div class="social-links">
+              <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+              <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+              <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+              <a href="#" class="google-plus"><i class="icofont-skype"></i></a>
+              <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+            </div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6 footer-newsletter">
+            <h4>Our Newsletter</h4>
+            <p>If you are interested in receiving notifications of the best designs,please take your valuable time to subscribe to our newsletter</p>
+            <form action="" method="post">
+              <input type="email" name="email"><input type="submit" value="Subscribe">
+            </form>
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="copyright">
+        &copy; Copyright <strong><span>ELLY CERAMICS</span></strong>. All Rights Reserved
+      </div>
+      <div class="credits">
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: https://bootstrapmade.com/license/ -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/serenity-bootstrap-corporate-template/ -->
+        Designed by <a href="https://bootstrapmade.com/">Nassim</a>
+      </div>
+    </div>
+  </footer><!-- End Footer -->
+
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+</div>
+  <!-- Vendor JS Files -->
+  <script src="{% static 'site/assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/aos/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'site/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>

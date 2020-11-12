@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>ELLY CERAMICS Product-catalogue</title>
+  <meta content="" name="descriptison">
+  <meta content="" name="keywords">
+
+  <!-- Favicons -->
+  <link href="{% static 'site/assets/img/favicon.png' %}" rel="icon">
+  <link href="{% static 'site/assets/img/apple-touch-icon.png' %}" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet">
+
+  <!-- Vendor CSS Files -->
+  <link type="text/css" href="{% static 'site/assets/vendor/bootstrap/css/bootstrap.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/icofont/icofont.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/boxicons/css/boxicons.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/venobox/venobox.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/line-awesome/css/line-awesome.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/owl.carousel/assets/owl.carousel.min.css' %}" rel="stylesheet">
+  <link type="text/css" href="{% static 'site/assets/vendor/aos/aos.css' %}" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="{% static 'site/assets/css/style.css' %}" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: Serenity - v2.1.0
+  * Template URL: https://bootstrapmade.com/serenity-bootstrap-corporate-template/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Header ======= -->
+  <header id="header" class="fixed-top">
+    <div class="container d-flex">
+
+      <div class="logo mr-auto">
+        <h1 class="text-light"><a href="index.html">ELLY CERAMICS</a></h1>
+        <!-- Uncomment below if you prefer to use an image logo -->
+        <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
+      </div>
+
+      <nav class="nav-menu d-none d-lg-block">
+        <ul>
+          <li><a href="{%url 'index'%}">Home</a></li>
+
+          <li class="drop-down"><a href="#">About</a>
+            <ul>
+              <li><a href="about.html">About Us</a></li>
+              <li><a href="team.html">Team</a></li>
+
+              <li class="drop-down"><a href="#">Drop Down 2</a>
+                <ul>
+                  <li><a href="#">Deep Drop Down 1</a></li>
+                  <li><a href="#">Deep Drop Down 2</a></li>
+                  <li><a href="#">Deep Drop Down 3</a></li>
+                  <li><a href="#">Deep Drop Down 4</a></li>
+                  <li><a href="#">Deep Drop Down 5</a></li>
+                </ul>
+              </li>
+            </ul>
+          </li>
+
+          <li><a href="pricing.html">Pricing</a></li>
+          <li><a href="{% url 'services' %}">Services</a></li>
+          <li class="active"><a href="portfolio.html">Catalogue</a></li>
+          <li><a href="blog.html">Blog</a></li>
+          <li><a href="contact.html">Contact</a></li>
+
+          <li class="get-started"><a href="#">Admin</a></li>
+        </ul>
+      </nav><!-- .nav-menu -->
+
+    </div>
+  </header><!-- End Header -->
+
+  <main id="main">
+
+    <!-- ======= Breadcrumbs ======= -->
+    <section id="breadcrumbs" class="breadcrumbs">
+      <div class="breadcrumb-hero">
+        <div class="container">
+          <div class="breadcrumb-hero">
+            <h2>Product Catalogue</h2>
+            <p>Here are some of our products well sorted for best results. Please take your time and walk through them with their various prices and quantity left . </p>
+          </div>
+        </div>
+      </div>
+      <div class="container">
+        <ol>
+          <li><a href="index.html">Home</a></li>
+          <li>Portolio</li>
+        </ol>
+      </div>
+    </section><!-- End Breadcrumbs -->
+
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio">
+      <div class="container">
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-app">Plumbing</li>
+              <li data-filter=".filter-card">Bathroom accessories</li>
+              <li data-filter=".filter-web">Tiles</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up">
+
+        
+
+          {% for pb in plumbing %}
+
+          <div class="col-lg-2 col-md-3 portfolio-item filter-app">
+            <div class="portfolio-wrap">
+              <img src="{{ pb.image.url }}" class="img-fluid" alt="" >
+              <div class="portfolio-info">
+                <h4>{{ pb.Item_Name }}</h4>
+                <p>{{ pb.Quantity }} pieces left</p>
+                <p>shs.{{ pb.Selling_price}}</p>
+                <div class="portfolio-links">
+                  <a href="{{ pb.image.url }}" data-gall="portfolioGallery" class="venobox" title="App 1"><i class="bx bx-plus"></i></a>
+                  <a href="{% url 'item' pk=pb.pk%}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+
+          {% for tile in tiles %}
+          
+          <div class="col-lg-2 col-md-3 portfolio-item filter-web">
+            <div class="portfolio-wrap">
+              <a href="{% url  'item' pk=tile.pk %}"><img src="{{ tile.image.url }}" class="img-fluid" alt=""></a>
+              <div class="portfolio-info">
+                <h4>{{ tile.Item_Name }}</h4>
+                <p>{{tile.Quantity}} boxes left</p>
+                <p>shs.{{ tile.Selling_price }}</p>
+                <div class="portfolio-links">
+                  <a href="{{ tile.image.url }}" data-gall="portfolioGallery" class="venobox" title="Web 3"><i class="bx bx-plus"></i></a>
+                  <a href="{% url  'item' pk=tile.pk %}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+
+          {% for b in ba %}
+          <div class="col-lg-2 col-md-3 portfolio-item filter-card">
+            <div class="portfolio-wrap">
+              <img src="{{ b.image.url }}" class="img-fluid" alt="">
+              <div class="portfolio-info">
+                <h4>{{ b.Item_Name }}</h4>
+                <p>{{ b.Quantity }} pieces left</p>
+                <p>shs.{{ b.Selling_Price }}</p>
+                <div class="portfolio-links">
+                  <a href="{{ b.image.url }}" data-gall="portfolioGallery" class="venobox" title="Card 2"><i class="bx bx-plus"></i></a>
+                  <a href="{% url 'item' pk=b.pk %}" title="More Details"><i class="bx bx-link"></i></a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {% endfor %}
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+ <!-- ======= Footer ======= -->
+ <footer id="footer">
+  <div class="footer-top">
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 col-md-6 footer-info">
+          <h3>ELLY CERAMICS</h3>
+          <p>Its to our honour that you receive a comfortable zone thats why bring to you the best tiles,services,plumbing materials at very pocket friendly prices.Please we are so delighted for the time taken to visit the site.W e are sure u will be convinced</p>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-links">
+          <h4>Useful Links</h4>
+          <ul>
+            <li><a href="#">Home</a></li>
+            <li><a href="#">About us</a></li>
+            <li><a href="#">Services</a></li>
+            <li><a href="#">Terms of service</a></li>
+            <li><a href="#">Privacy policy</a></li>
+          </ul>
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-contact">
+          <h4>Contact Us</h4>
+          <p>
+            Buddu Street <br>
+            Masaka,  535022<br>
+            Uganda <br>
+            <strong>Phone:</strong> +256 758989094<br>
+            <strong>Email:</strong> Kizzaelias@gmail.com<br>
+          </p>
+
+          <div class="social-links">
+            <a href="#" class="twitter"><i class="icofont-twitter"></i></a>
+            <a href="#" class="facebook"><i class="icofont-facebook"></i></a>
+            <a href="#" class="instagram"><i class="icofont-instagram"></i></a>
+            <a href="#" class="google-plus"><i class="icofont-skype"></i></a>
+            <a href="#" class="linkedin"><i class="icofont-linkedin"></i></a>
+          </div>
+
+        </div>
+
+        <div class="col-lg-3 col-md-6 footer-newsletter">
+          <h4>Our Newsletter</h4>
+          <p>If you are interested in receiving notifications of the best designs,please take your valuable time to subscribe to our newsletter</p>
+          <form action="" method="post">
+            <input type="email" name="email"><input type="submit" value="Subscribe">
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="copyright">
+      &copy; Copyright <strong><span>ELLY CERAMICS</span></strong>. All Rights Reserved
+    </div>
+    <div class="credits">
+      <!-- All the links in the footer should remain intact. -->
+      <!-- You can delete the links only if you purchased the pro version. -->
+      <!-- Licensing information: https://bootstrapmade.com/license/ -->
+      <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/serenity-bootstrap-corporate-template/ -->
+      Designed by <a href="https://bootstrapmade.com/">Nassim</a>
+    </div>
+  </div>
+</footer><!-- End Footer -->
+
+<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+<!-- Vendor JS Files -->
+<script src="{% static 'site/assets/vendor/jquery/jquery.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/php-email-form/validate.js' %}"></script>
+<script src="{% static 'site/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/counterup/counterup.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/venobox/venobox.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+<script src="{% static 'site/assets/vendor/aos/aos.js' %}"></script>
+
+<!-- Template Main JS File -->
+<script src="{% static 'site/assets/js/main.js' %}"></script>
+
+</body>
+
+</html>
