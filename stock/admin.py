@@ -9,7 +9,7 @@ def calculate_overall_price (ModelAdmin,request,queryset):
 
 class stockf(admin.ModelAdmin):
     list_display = ['Item_Name','Quantity','Cost_price','Selling_price','date added','overall_price','Category']
-    list_filter = ['Quantity','Category']
+    list_filter = ['Quantity','Category','date added']
     search_fields = ('Item_Name',)
     actions = [calculate_overall_price] 
 

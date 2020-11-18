@@ -6,6 +6,7 @@ from django.db.models.signals import post_save
 from stock.models import stock
 
 
+
 # Create your models here.
 
 status_choices = [
@@ -87,6 +88,7 @@ class situation_out (models.Model):
         for pe in w :
             initial_value += pe.Amount_paid
         debts_out.objects.filter(Name = self.Name).update(Paid=initial_value,Balance=F('Overall_price')-initial_value)
+
         super(situation_out,self).save(*args,**kwargs)    
     
 

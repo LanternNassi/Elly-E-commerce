@@ -19,6 +19,7 @@ class daily_sales_admin (admin.ModelAdmin):
     inlines = [product_entry_admin]
     search_fields = ('Day',)
     list_display = ('Day','Date_sold','Total_sales')
+    list_filter = ('Date_sold','Day',)
 
 
 class receipt_items (admin.TabularInline):
@@ -33,7 +34,8 @@ class receipt_admin (admin.ModelAdmin):
     ]
     search_fields = ('Name',)
     inlines = [receipt_items]
-    list_display = ('Name','Email','Phone_number','Date_sold','Overall_price')    
+    list_display = ('Name','Email','Phone_number','Date_sold','Overall_price')
+    list_filter = ('Date_sold',)    
 
 
 

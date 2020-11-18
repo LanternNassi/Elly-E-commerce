@@ -140,12 +140,16 @@ class Receipt_items (models.Model):
         for oip in w:
             initial_value += oip.Overall_item_price    
         Receipts.objects.filter(Name = self.Name).update(Overall_price=initial_value)
-        y = Receipt_items.objects.filter(Name__Name=self.Name)
-        for item in y :
-            r = stock.objects.get(Item_Name=item.Item)
-            remainder = r.Quantity - item.Quantity
-            stock.objects.filter(Item_Name=item.Item).update(Quantity=remainder)
-            stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        #y = Receipt_items.objects.filter(Name__Name=self.Name)
+        #for item in y :
+         #   r = stock.objects.get(Item_Name=item.Item)
+          #  remainder = r.Quantity - item.Quantity
+           # stock.objects.filter(Item_Name=item.Item).update(Quantity=remainder)
+            #stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        r = stock.objects.get(Item_Name=self.Item)
+        remainder = r.Quantity - self.Quantity
+        stock.objects.filter(Item_Name = self.Item ).update(Quantity=remainder)
+        stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))    
 
 
         super(Receipt_items,self).save(*args,**kwargs)
