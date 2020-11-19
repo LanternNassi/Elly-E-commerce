@@ -130,8 +130,8 @@ class Receipt_items (models.Model):
     Name = models.ForeignKey(Receipts,related_name='items',on_delete=models.CASCADE)
     Item = models.ForeignKey(stock,related_name='Name_items',on_delete=models.CASCADE)
     Quantity = models.IntegerField()
-    Selling_price = models.IntegerField()
-    Overall_item_price = models.IntegerField(null=True,blank=True)
+    Selling_price = models.IntegerField(null = True , blank = True)
+    Overall_item_price =  models.IntegerField(blank = True, null = True)
     def save (self,*args,**kwargs):
         Receipt_items.objects.update(Overall_item_price=F('Quantity')*F('Selling_price'))
         super(Receipt_items,self).save(*args,**kwargs)
@@ -149,7 +149,8 @@ class Receipt_items (models.Model):
         r = stock.objects.get(Item_Name=self.Item)
         remainder = r.Quantity - self.Quantity
         stock.objects.filter(Item_Name = self.Item ).update(Quantity=remainder)
-        stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))    
+        stock.objects.update(overall_price=F('Quantity')*F('Selling_price')) 
+           
 
 
         super(Receipt_items,self).save(*args,**kwargs)
