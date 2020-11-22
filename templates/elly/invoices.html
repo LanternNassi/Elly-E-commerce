@@ -1,0 +1,67 @@
+{% load static %}
+<!doctype html>
+<html lang="en">
+<head>
+<link
+rel="stylesheet"
+href="{% static "css/bootstrap.min.css" %}">
+<title>Invoice</title>
+</head>
+<body>
+<div class="container-fluid">
+<div class="row">
+<div class="col">
+<h1>BookTime</h1>
+<h2>Invoice</h2>
+</div>
+</div>
+<div class="row">
+<div class="col-8">
+Invoice number BT{{ Receipt.id }}
+<br/>
+Date:
+{{ Receipts.Date_sold|date }}
+</div>
+<div class="col-4">
+{{ Receipts.Name }}<br/>
+{{ Receipts.Email }}<br/>
+{{  Receipts.Phone_number }}<br/>
+{{ Receipts.Overall_price }}<br/>
+
+</div>
+</div>
+<div class="row">
+<div class="col">
+<table
+class="table"
+style="width: 95%; margin: 50px 0px 50px 0px">
+<tr>
+<th>Product name</th>
+<th>Product Quantity</th>
+<th>Product price</th>
+<th>Overall Price</th>
+</tr>
+{% for purchase in Receipt_items %}
+<tr>
+<td>{{ purchase.Name }}</td>
+<td>{{ purchase.Quantity }}</td>
+<td>{{ purchase.Selling_price }}</td>
+<td>{{ purchase.Overall_item_price }}</td>
+</tr>
+{% endfor %}
+</table>
+</div>
+</div>
+<div class="row">
+<div class="col">
+<p>
+Please pay within 30 days
+</p>
+<p>
+BookTime inc.
+</p>
+</div>
+</div>
+</div>
+</body>
+</html>

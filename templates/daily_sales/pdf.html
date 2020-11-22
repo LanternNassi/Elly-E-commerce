@@ -2,18 +2,20 @@
 <body>
   <center><h1><u>ELLY CERAMICS</u></h1></center>
   <p>
-    Invoice no. {{ order.id }}</br>
+    Invoice no. {{ receipt.id }}</br>
+    Status : Paid </br>
+  
     <span class="secondary">
-      {{ order.created|date:"M d, Y" }}
+      {{ receipt.Date_sold|date:"M d, Y" }}
     </span>
   </p>
 
   <h3>Bill to</h3>
   <p>
   <ul>
-    <li><h4>{{ order.first_name }} {{ order.last_name }}</h4></li>
-     <li>{{ order.email }}
-     <li>{{ order.address }}
+    <li><h3>{{ receipt.Name }}</h3>
+     <li>{{ receipt.Email }}
+     <li>{{ receipt.Phone_number }}
    </ul>
   </p>
 
@@ -31,25 +33,23 @@
       </tr>
     </thead>
     <tbody>
-      {% for item in order.items.all %}
+      {% for item in receipt.items.all %}
         <tr class="row{% cycle "1" "2" %}">
-          <td>{{ item.product }}</td>
-          <td class="num">{{ item.quantity }}</td>
-          <td class="num">shs.{{ item.price }}</td>
-          <td class="num">shs.{{ item.get_cost }}</td>
+          <td>{{ item.Item }}</td>
+          <td class="num">{{ item.Quantity }}</td>
+          <td class="num">shs.{{ item.Selling_price }}</td>
+          <td class="num">shs.{{ item.Overall_item_price }}</td>
         </tr>
       {% endfor %}
       <tr class="total">
         <td colspan="3">Total</td>
-        <td class="num">shs.{{ order.get_total_cost }}</td>
+        <td class="num">shs.{{ receipt.Overall_price }}</td>
       </tr>
     </tbody>
   </table>
   </div>
     <div class="mode">
-  <span class="{% if order.paid %}paid{% else %}pending{% endif %}">
-    {% if order.paid %}Paid{% else %}Pending payment{% endif %}
-  </span>
+  
   </div>
 </body>
 </html>

@@ -1,0 +1,24 @@
+.tab {
+    width: 100%;
+    height: fit-content;
+    position: relative;
+    margin-top: 15px;
+    margin: auto;
+    
+}
+.table{
+    width: 100%;
+    position: absolute;
+    height: inherit;
+    border: 1px;
+    border-radius: 10px;
+    margin: auto;
+    
+}
+.mode{
+    position:relative;
+    top: 400px;
+}
+.total{
+    font-size: xx-large;
+}
