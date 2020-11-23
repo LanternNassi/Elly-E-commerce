@@ -5,6 +5,7 @@ from django.db.models.signals import post_init,pre_init,pre_save,post_save
 from django.db.models import F
 from stock.models import stock
 import json
+from datetime import date 
 
 
 # Create your models here
@@ -32,11 +33,11 @@ class product_entry (models.Model):
     Total_price = models.IntegerField(null = True,blank = True)
     def save (self,*args,**kwargs):
         product_entry.objects.update(Total_price=F('Quantity')*F('Selling_price'))
-        e = stock.objects.filter(Item_Name=self.product)
-        for b in e :
-            inert_quantity = b.Quantity - self.Quantity
-            stock.objects.filter(Item_Name=self.product).update(Quantity=inert_quantity)
-            stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        #e = stock.objects.filter(Item_Name=self.product)
+        #for b in e :
+         #   inert_quantity = b.Quantity - self.Quantity
+          #  stock.objects.filter(Item_Name=self.product).update(Quantity=inert_quantity)
+           # stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
         super(product_entry,self).save(*args,**kwargs)
         
         inintial_value = 0
@@ -44,37 +45,23 @@ class product_entry (models.Model):
         for p in w : 
             inintial_value += p.Total_price
         daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)
-        super(product_entry,self).save(*args,**kwargs)
+        #super(product_entry,self).save(*args,**kwargs)
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
         
-        
-               
-        
-       
-                
-                
-                
-                
-        #for pe in w :
-        
-
-   # def __init__ (self,*args,**kwargs):
-    #    try:
-     #       stock.objects.get(Item_Name=self.product).update(Quantity=F('Quantity')-F('self.Quantity'))
-      #      super(product_entry,self).__init__(*args,**kwargs)
-       # except:
-        #    pass     
-              
-        
+  
 
 
     def delete (self,*args,**kwargs):
-        super(product_entry,self).delete(*args,**kwargs)
+        e = stock.objects.get(Item_Name=self.product__items)  
+        total = e.Quantity + self.Quantity
+        stock.objects.filter(Item_Name=self.product__items).update(Quantity=total)
         inintial_value = 0
         w = product_entry.objects.filter(Day = self.Day)
         for pe in w :
             inintial_value += pe.Total_price
-        daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)  
+        daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)
+        super(product_entry,self).delete(*args,**kwargs)
+    
 
 @receiver (post_save,sender=product_entry,)
 def pe_calc (sender,instance,**kwargs):
@@ -145,12 +132,22 @@ class Receipt_items (models.Model):
         remainder = r.Quantity - self.Quantity
         stock.objects.filter(Item_Name = self.Item ).update(Quantity=remainder)
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price')) 
+        #adding receipt items to daily sales
+        obj,identifier = daily_sales.objects.get_or_create(Day="Today",Date_sold=date.today())
+        product_entry.objects.create(Day=obj ,product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+        #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+        #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+        #e.save()
+        
            
 
 
         super(Receipt_items,self).save(*args,**kwargs)
 
     def delete (self,*args,**kwargs):
+        e = stock.objects.get(Item_Name = self.Item)
+        total = e.Quantity + self.Quantity
+        stock.objects.filter(Item_Name=self.Item).update(Quantity=total)
         super(Receipt_items,self).delete(*args,**kwargs)
         inintial_value = 0
         w = Receipt_items.objects.filter(Name=self.Name)
