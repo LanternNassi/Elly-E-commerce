@@ -44,14 +44,14 @@
     <div class="container d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="{% url 'index'%}">ELLY CERAMICS</a></h1>
+        <h1 class="text-light"><a href="{% url 'index.html'">ELLY CERAMICS</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
 
       <nav class="nav-menu d-none d-lg-block">
         <ul>
-          <li><a href="{% url 'index'%}">Home</a></li>
+          <li class="active"><a href="{% url 'index'%}">Home</a></li>
 
           <li class="drop-down"><a href="#">About</a>
             <ul>
@@ -71,7 +71,7 @@
           </li>
 
           <li><a href="pricing.html">Pricing</a></li>
-          <li class="active"><a href="services.html">Services</a></li>
+          <li><a href="{% url 'services'%}">Services</a></li>
           <li><a href="{% url 'catalogue'%}">Catalogue</a></li>
           <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
@@ -83,93 +83,60 @@
     </div>
   </header><!-- End Header -->
 
-  <main id="main">
+<div style=" position:relative; top:89px; margin: auto; padding: 29px; border: 2px;">
 
-    <!-- ======= Breadcrumbs ======= -->
-    <section id="breadcrumbs" class="breadcrumbs">
-      <div class="breadcrumb-hero">
-        <div class="container">
-          <div class="breadcrumb-hero">
-            <h2>Services</h2>
-            <p>We dearly present to you some of the talent we have with all the contacts. Please if you dont mind , you can walk through their works and we believe they will please you   </p>
-          </div>
+  <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" >
+    <div style="width: auto; position: relative;height: 118px; bottom: 16px;text-align: center;border-top-left-radius: 19px;border-top-right-radius: 19px; padding: 15px; background-color: greenyellow;" >
+      <h2 style="text-align: center;"><b>ELLY CERAMICS </b></h2>
+    <h5 style="text-align: center;">Create an account</h5>
+
+  </div>
+
+    <form action="" enctype="multipart/form-data" method="POST" >
+      {% csrf_token%}
+      {% if msg %}
+      <span class="text-danger"> {{msg}}</span>
+      {% endif %}
+      <div class="form-row">
+        <div class="col-md-6 form-group">
+          {{ information.Name}}
+          <div class="validate"></div>
+        </div>
+        <div class="col-md-6 form-group">
+          {{ information.Email}}
+          <div class="validate"></div>
         </div>
       </div>
-      <div class="container">
-        <ol>
-          <li><a href="index.html">Home</a></li>
-          <li>Services</li>
-        </ol>
+      <div class="form-group">
+        {{ information.Contact}}
+        <div class="validate"></div>
       </div>
-    </section><!-- End Breadcrumbs -->
-
-    <!-- ======= Services Section ======= -->
-    
-    <!-- ======= Features Section ======= -->
-    <section id="portfolio" class="portfolio">
-      <div class="container">
-
-        <div class="row">
-          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up">
-            <ul id="portfolio-flters">
-              <li data-filter="*" class="filter-active">All</li>
-              <li data-filter=".filter-app">Plumbers</li>
-              <li data-filter=".filter-card">Tilers</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="row portfolio-container" data-aos="fade-up">
-
-          {% for plumber in plumbers %}
-
-          <div class="col-lg-2 col-md-3 col-sm-4 portfolio-item filter-app">
-            <div class="portfolio-wrap">
-
-              <img src="{{ plumber.profile_pic.url }}" class="img-fluid" alt="" >
-              <div class="portfolio-info">
-                <h4> {{ plumber.Name }} </h4>
-                <p> {{ plumber.Contact }}</p>
-                <p> {{ plumber.EMail }}</p>
-                <div class="portfolio-links">
-                  <a href="{{ plumber.profile_pic.url }}" data-gall="portfolioGallery" class="venobox" title="{{ plumber.Name }} ({{ plumber.Contact}})"><i class="bx bx-plus"></i></a>
-                  <a href="{% url 'p_profile' id=plumber.id%}" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {% endfor %}
-
-          {% for tiler in tilers %}
-          <div class="col-lg-2 col-md-3 col-sm-4 portfolio-item filter-card">
-            <div class="portfolio-wrap">
-              <img src="{{ tiler.profile_pic.url }} " class="img-fluid" alt="">
-              <div class="portfolio-info">
-                <h4> {{ tiler.Name}} </h4>
-                <p>{{ tiler.Contact }}</p>
-                <p> {{ tiler.Email}} </p>
-                <div class="portfolio-links">
-                  <a href="{{ tiler.profile_pic.url }}" data-gall="portfolioGallery" class="venobox" title="{{ tiler.Name }} ({{ tiler.Contact}})"><i class="bx bx-plus"></i></a>
-                  <a href="{% url 'profile' id=tiler.id%}" title="More Details"><i class="bx bx-link"></i></a>
-                </div>
-              </div>
-            </div>
-          </div>
-          {% endfor %}
-
-
+      <div class="form-group">
+        {{ information.Password }}
+        <div class="validate"></div>
+      </div>
+      <div class="form-group">
+        {{ information.profile_pic }}
+        <div class="validate"></div>
+      </div>
+     
+      
         
+          <div class="text-center"><button type="submit" class="btn btn-danger btn-lg" value="submit" type="submit">Create account</button> </div>
+      <ul style="left: 9px;">      
+          <li><p>If you already have an account.<a href="{% url 'service_tiler' %}">Login</a></p></li>
+      </ul>
+      
+    </form>
+
+  </div>
 
 
-        </div>
+</div>
 
-      </div>
-    </section><!-- End Features Section -->
-
-  </main><!-- End #main -->
 
  <!-- ======= Footer ======= -->
+ <div style="position:relative; top:99px">
  <footer id="footer">
   <div class="footer-top">
     <div class="container">
@@ -237,22 +204,26 @@
   </div>
 </footer><!-- End Footer -->
 
-<a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
 
-<!-- Vendor JS Files -->
-<script src="{% static 'site/assets/vendor/jquery/jquery.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/php-email-form/validate.js' %}"></script>
-<script src="{% static 'site/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/counterup/counterup.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/venobox/venobox.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
-<script src="{% static 'site/assets/vendor/aos/aos.js' %}"></script>
+</div>
 
-<!-- Template Main JS File -->
-<script src="{% static 'site/assets/js/main.js' %}"></script>
+ 
+  <a href="#" class="back-to-top"><i class="icofont-simple-up"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="{% static 'site/assets/vendor/jquery/jquery.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/bootstrap/js/bootstrap.bundle.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/jquery.easing/jquery.easing.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/php-email-form/validate.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/waypoints/jquery.waypoints.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/counterup/counterup.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/venobox/venobox.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/owl.carousel/owl.carousel.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/isotope-layout/isotope.pkgd.min.js' %}"></script>
+  <script src="{% static 'site/assets/vendor/aos/aos.js' %}"></script>
+
+  <!-- Template Main JS File -->
+  <script src="{% static 'site/assets/js/main.js' %}"></script>
 
 </body>
 

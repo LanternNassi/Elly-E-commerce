@@ -36,8 +36,8 @@
       {% for item in receipt.items.all %}
         <tr class="row{% cycle "1" "2" %}">
           <td>{{ item.Item }}</td>
-          <td class="num">{{ item.Quantity }}</td>
-          <td class="num">shs.{{ item.Selling_price }}</td>
+          <td class="num">{{ item.Quantity }} </td>
+          <td class="num">x shs.{{ item.Selling_price }}</td>
           <td class="num">shs.{{ item.Overall_item_price }}</td>
         </tr>
       {% endfor %}

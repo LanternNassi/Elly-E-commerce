@@ -124,7 +124,7 @@
 
           {% for pb in plumbing %}
 
-          <div class="col-lg-2 col-md-3 portfolio-item filter-app">
+          <div class="col-lg-2 col-md-4 col-sm-4 portfolio-item filter-app">
             <div class="portfolio-wrap">
               <img src="{{ pb.image.url }}" class="img-fluid" alt="" >
               <div class="portfolio-info">
@@ -144,7 +144,7 @@
 
           {% for tile in tiles %}
           
-          <div class="col-lg-2 col-md-3 portfolio-item filter-web">
+          <div class="col-lg-2 col-md-3 col-sm-4 portfolio-item filter-web">
             <div class="portfolio-wrap">
               <a href="{% url  'item' pk=tile.pk %}"><img src="{{ tile.image.url }}" class="img-fluid" alt=""></a>
               <div class="portfolio-info">
@@ -162,7 +162,7 @@
           {% endfor %}
 
           {% for b in ba %}
-          <div class="col-lg-2 col-md-3 portfolio-item filter-card">
+          <div class="col-lg-2 col-md-4 col-sm-4 portfolio-item filter-card">
             <div class="portfolio-wrap">
               <img src="{{ b.image.url }}" class="img-fluid" alt="">
               <div class="portfolio-info">

@@ -19,7 +19,10 @@ def recorder (request):
             profile_pic = form.cleaned_data.get("profile_pic")
             p=Plumbing_Services.objects.create(Name=Name,Contact=Contact,EMail=Email,Password=Password,Status=False,profile_pic=profile_pic)
             p.save()
-            return redirect("/")
+            images_plumbing.objects.create(Name=p,image=profile_pic)
+            return render(request,'elly/plumber_account.html',{'plumber':Plumbing_Services.objects.get(Password=Password),'Plumber_gallery':images_plumbing.objects.filter(Name__Password=Password)})
+
+            #return redirect("/")
             # return render(re)
             #base = Plumbing_Services.objects.all()
             #for plumber in base :
@@ -84,7 +87,9 @@ def recorder_tiler (request):
             profile_pic = form.cleaned_data.get("profile_pic")
             p=Tiling_Services.objects.create(Name=Name,Contact=Contact,Email=Email,Password=Password,Status=False,profile_pic=profile_pic)
             p.save()
-            return redirect("/")
+            images_tiling.objects.create(Name=p,image=profile_pic)
+            return render(request,'elly/Tiler_account.html',{'tiler':Tiling_Services.objects.get(Name=Name),'Tiler_gallery':images_tiling.objects.filter(Name__Name=Name)})
+            #return redirect("/")
             #base = Plumbing_Services.objects.all()
             #for plumber in base :
             #    if plumber.Name == p.Name :
@@ -161,7 +166,15 @@ def profile_renderer_plumbing (request,id):
 
 # start of account editting\
 
-
+def tiler_editer(request,id):
+    information = Tiling_Services.objects.get(id = id)
+    if request.method == "POST" :
+        form = service_installer(request.POST,request.FILES,instance=information )
+        if form.is_valid():
+            Tiling_services.objects.get(id=id).update(Name=form.cleaned_data.get("Name"),Contact=form.cleaned_data.get("Contact"),Email=form.cleaned_data.get("Email"),Password=form.cleaned_data.get("Password"),profile_pic=form.cleaned_data.get("profile_pic"))
+    else :
+        form = service_installer(information)    
+    return render(request,'elly/Tilers_editer.html',{'information':information})
 
             
 

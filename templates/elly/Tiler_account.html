@@ -91,15 +91,15 @@
       <div class="breadcrumb-hero">
         <div class="container">
           <div class="breadcrumb-hero">
-            <h2>{{ plumber_info.Name }}</h2>
-            <p>Plumber </p>
+            <h2>{{ tiler.Name }}</h2>
+            <p>Tiler</p>
           </div>
         </div>
       </div>
       <div class="container">
         <ol>
           <li><a href="{% url 'index' %}">Home</a></li>
-          <li>{{plumber_info.Name }}</li>
+          <li>{{tiler.Name }}</li>
         </ol>
       </div>
     </section><!-- End Breadcrumbs -->
@@ -127,11 +127,11 @@
             <ul>
               <li><strong>Name</strong> : {{tiler.Name}}</li>
               <li><strong>Contact</strong> : {{ tiler.Contact }}</li>
-              <li><strong>Email</strong> : {{ tiler.EMail }}</li>
+              <li><strong>Email</strong> : {{ tiler.Email }}</li>
               <li><strong>Category</strong>: Tiler</li>
               <div style="display: inline; padding: 4px;">
                   <a class="btn btn-info btn-lg" href="#"><span class="glyphicon glyphicon-picture"></span>Add Picture</a>
-                  <a class="btn btn-info btn-lg" href="#"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a>
+                  <a class="btn btn-info btn-lg" href="{%url 'tiler_editer' id=tiler.pk%}"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a>
               </div>
             </ul>
           </div>

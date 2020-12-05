@@ -105,12 +105,12 @@
 	
  <div class="row" >
     
-        <div class="col-lg-2"><h4 style="color:red;">Image</div>
-        <div class="col-lg-2"><h4 style="color:red;">Product</h1></div>
-        <div class="col-lg-2"><h4 style="color:red;">Quantity</h1></div>
-        <div class="col-lg-2"><h4 style="color:red;">Remove</h1></div>
-        <div class="col-lg-2"><h4 style="color:red;">Unit price</h1></div>                
-        <div class="col-lg-2"><h4 style="color:red;">Total Price</h1></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Image</div>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Product</h1></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Quantity</h1></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Remove</h1></div>
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Unit price</h1></div>                
+        <div class="col-lg-2 col-md-2 col-sm-2"><h5 style="color:red;">Total Price</h1></div>
     
  </div>
  
@@ -120,15 +120,15 @@
         {% with product=item.product %}
         <div class="row">
           
-            <div class="col-lg-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">
               <a href="{{ product.get_absolute_url }}">
                 <img class="img-fluid" src="{% if product.image %}{{ product.image.url }}{% else %}{% static 'img/cube-2803223_1920.jpg' %}{% endif %}">  
                                   
               </a>
               </div>
             
-            <div class="col-lg-2">{{ product.name }}</div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 col-md-2 col-sm-2">{{ product.Name }}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2">
                 <form action="{% url 'cart_add' product.id %}" method="post">
                   {{ item.update_quantity_form.quantity }}
                   {{ item.update_quantity_form.update }}
@@ -136,9 +136,9 @@
                   {% csrf_token %}
                 </form>
               </div>
-            <div class="col-lg-2"><a class="btn btn-danger btn-md" href="{% url 'cart_remove' product.id %}">Remove</a></div>
-            <div class="col-lg-2">shs.{{ item.price }}</div>
-            <div class="col-lg-2">shs.{{ item.total_price }}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2"><a class="btn btn-danger btn-md" href="{% url 'cart_remove' product.id %}">Remove</a></div>
+            <div class="col-lg-2 col-md-2 col-sm-2">shs.{{ item.price }}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2">shs.{{ item.total_price }}</div>
 </div>
         {% endwith %}
       {% endfor %}
