@@ -5,7 +5,7 @@ from Services.models import Tiling_Services,Plumbing_Services
 
 class service_installer (forms.Form) :
     Name = forms.CharField(
-        max_length=16,
+        max_length=200,
         widget=forms.TextInput(
             attrs={
                 "placeholder":"Your Name",
@@ -14,7 +14,7 @@ class service_installer (forms.Form) :
         )
     )
     Contact = forms.CharField(
-        max_length=13,
+        max_length=200,
         widget=forms.TextInput(
             attrs={
                 "placeholder":"Your contact please",
@@ -23,7 +23,7 @@ class service_installer (forms.Form) :
         )
     )
     Email = forms.EmailField(
-        max_length=20,
+        max_length=190,
         widget=forms.EmailInput(
             attrs={
                 "placeholder":"Email",

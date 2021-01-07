@@ -17,7 +17,7 @@ cats = [
 ]
 
 class stock (models.Model):
-    Item_Name = models.CharField(max_length=12)
+    Item_Name = models.CharField(max_length=100)
     Quantity = models.PositiveIntegerField()
     Cost_price = models.PositiveIntegerField()
     Selling_price = models.PositiveIntegerField()
@@ -31,7 +31,7 @@ class stock (models.Model):
         return self.Item_Name
 
     def save (self,*args,**kwargs):
-        stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        stock.objects.update(overall_price=F('Quantity')*F('Cost_price'))
         super(stock,self).save(*args,**kwargs)
 
 

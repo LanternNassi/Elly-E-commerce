@@ -1,6 +1,9 @@
 <html>
 <body>
   <center><h1><u>ELLY CERAMICS</u></h1></center>
+  <center><h2>Masaka City,Buddu Street</h2></center>
+  <center><h2>Plot No.294</h2></center>
+  <center><h3> Tel. 0758989094 , Tel. 0707437906 </h3></center>
   <p>
     Invoice no. {{ receipt.id }}</br>
     Status : Paid </br>
@@ -13,14 +16,14 @@
   <h3>Bill to</h3>
   <p>
   <ul>
-    <li><h3><u>{{ receipt.Name }}</u></h3>
+    <li>{{ receipt.Name }}
      <li>{{ receipt.Email }}
      <li>{{ receipt.Phone_number }}
    </ul>
   </p>
 
   
-  <div class="tab">
+  
   <center><h1>Items bought</h1></center>
   <table class="table">
     <thead>
@@ -37,7 +40,7 @@
         <tr class="row{% cycle "1" "2" %}">
           <td>{{ item.Item }}</td>
           <td class="num">{{ item.Quantity }} </td>
-          <td class="num">x shs.{{ item.Selling_price }}</td>
+          <td class="num">x shs.{{ item.Selling_price  }}</td>
           <td class="num">shs.{{ item.Overall_item_price }}</td>
         </tr>
       {% endfor %}
@@ -47,9 +50,10 @@
       </tr>
     </tbody>
   </table>
-  </div>
-    <div class="mode">
   
-  </div>
+  <div style = "position: relative ; top:260px;">
+
+    <center><h4><i><p> "Thank you for trusting ELLY CERAMICS. We look forward to doing business with you again dear {{ receipt.Name }}". </p></center></h4></i>
+    </div>
 </body>
 </html>

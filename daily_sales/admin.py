@@ -7,7 +7,7 @@ from django.template.loader import render_to_string
 from django.utils.html import format_html
 from weasyprint import HTML
 import tempfile
-from .views import admin_order_pdf 
+from .views import *
 from daily_sales.models import daily_sales,product_entry,Receipt_items,Receipts
 from stock.models import stock
 #from daily_sales.views import InvoiceMixin
@@ -20,14 +20,37 @@ class product_entry_admin (admin.TabularInline):
 
 
 class daily_sales_admin (admin.ModelAdmin):
+    change_form_template = 'admin/daily_sales/Daily Sales/change_form.htm'
+    def get_urls(self):
+        urls = super().get_urls()
+        my_urls = [
+            path(
+                "Report/<int:Sale_id>/",
+                self.admin_site.admin_view(admin_report_pdf ),
+                name="sale",
+            )
+        ]
+        return my_urls + urls
+
+   
+
+    def profits (obj):
+        initial_value = 0
+        d = product_entry.objects.filter(Day__Day = obj.Day)
+        for e in d :
+            initial_value += e.Profit
+        return initial_value 
+
+    profits.shortdescription = "Total Profit"
+
     fieldsets = [
         ('Day', {'fields':['Day']}),
-        ('Date',{'fields':['Date_sold']}),
+        ('Date',{'fields':['Date_sold','Approved']}),
         ('Total_sales',{'fields':['Total_sales']}),
     ]    
     inlines = [product_entry_admin]
     search_fields = ('Day',)
-    list_display = ('Day','Date_sold','Total_sales')
+    list_display = ('Day','Date_sold','Approved','Total_sales',profits)
     list_filter = ('Date_sold','Day',)
 
 
@@ -36,6 +59,7 @@ class receipt_items (admin.TabularInline):
     raw_id_fields = ('Item',)
 
 class receipt_admin (admin.ModelAdmin):
+    change_form_template = 'admin/daily_sales/Receipts/change_form.html'
     def get_urls(self):
         urls = super().get_urls()
         my_urls = [

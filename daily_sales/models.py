@@ -18,6 +18,7 @@ from datetime import date
 class daily_sales (models.Model):
     Day = models.CharField(max_length=10)
     Date_sold = models.DateTimeField(auto_now_add=False )
+    Approved = models.BooleanField(default = False)
     Total_sales = models.IntegerField(null=True,blank = True)
     class Meta():
         verbose_name_plural='daily sales'
@@ -31,14 +32,24 @@ class product_entry (models.Model):
     Quantity = models.IntegerField(null = True,blank = True)    
     Selling_price = models.IntegerField(null = True,blank = True)
     Total_price = models.IntegerField(null = True,blank = True)
+    Profit = models.IntegerField(null = True, blank = True)
     def save (self,*args,**kwargs):
         product_entry.objects.update(Total_price=F('Quantity')*F('Selling_price'))
+        super(product_entry,self).save(*args,**kwargs)
+        e = stock.objects.filter(Item_Name = self.product)
+        for w in e :
+            profit = self.Selling_price - w.Cost_price
+        product_entry.objects.filter(product = self.product).update(Profit = self.Quantity*profit)
+
+       
         #e = stock.objects.filter(Item_Name=self.product)
         #for b in e :
          #   inert_quantity = b.Quantity - self.Quantity
           #  stock.objects.filter(Item_Name=self.product).update(Quantity=inert_quantity)
            # stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
-        super(product_entry,self).save(*args,**kwargs)
+        
+        
+        
         
         inintial_value = 0
         w = product_entry.objects.filter(Day=self.Day)
@@ -47,6 +58,7 @@ class product_entry (models.Model):
         daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)
         #super(product_entry,self).save(*args,**kwargs)
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        
         
   
 
@@ -130,19 +142,28 @@ class Receipt_items (models.Model):
         #y = Receipt_items.objects.filter(Name__Name=self.Name)
         r = stock.objects.get(Item_Name=self.Item)
         remainder = r.Quantity - self.Quantity
+
         stock.objects.filter(Item_Name = self.Item ).update(Quantity=remainder)
+        
+        
+        
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price')) 
         #adding receipt items to daily sales
         obj,identifier = daily_sales.objects.get_or_create(Day="Today",Date_sold=date.today())
         product_entry.objects.create(Day=obj ,product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
-        #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
-        #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
-        #e.save()
+            #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+            #e = obj(product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+            #e.save()
+        super(Receipt_items,self).save(*args,**kwargs)
+
+
+        
+        
         
            
 
 
-        super(Receipt_items,self).save(*args,**kwargs)
+        
 
     def delete (self,*args,**kwargs):
         e = stock.objects.get(Item_Name = self.Item)

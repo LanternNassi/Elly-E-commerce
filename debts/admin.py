@@ -1,5 +1,5 @@
 from django.contrib import admin
-from debts.models import debts_in , debts_out, items_debted_in, items_debted_out,situation_in,situation_out
+from debts.models import *
 from stock.models import stock
 from django.db.models import F
 
@@ -76,7 +76,74 @@ class Questionadmin_debts_out(admin.ModelAdmin):
     search_fields = ('Name',)
     
 
-   
+class undefined_credit_situation_inline (admin.TabularInline):
+    model = undefined_credit_situation
+
+class undefined_credit_admin(admin.ModelAdmin):
+    change_list_template = 'admin/debts/credits/change_list.html'
+    
+    def total_credit (self):
+        initial_credit_value = 0
+        w = undefined_credit.objects.all()
+        for p in w :
+            initial_credit_value += p.Amount
+        return initial_credit_value    
+
+
+    def changelist_view (self,request,extra_content = None):
+        my_context = {'total_credit': self.total_credit}
+        return super(undefined_credit_admin,self).changelist_view(request,my_context)
+
+
+    fieldsets = [
+        ('Name',   {'fields': ['Name']}),
+        ('Date information', {'fields': ['Date'], 'classes':['collapse']}),
+        ('Overall', {'fields':['Amount','Paid','Balance']}),
+        ('situation',{'fields':['situation']}),
+
+    ]
+    inlines = [undefined_credit_situation_inline]
+    list_display = ('Name','Date','situation','clearance','Amount','Paid','Balance')
+    actions = [clearance_updater_1,clearance_updater_2]
+    search_fields = ('Name',)
+
+
+
+    
+class undefined_debts_situation_inline (admin.TabularInline):
+    model = undefined_debts_situation
+
+class undefined_debts_admin(admin.ModelAdmin):
+    change_list_template = 'admin/debts/debts/change_list.html'
+    def total_debts(self):
+        initial_value = 0 
+        w = undefined_debts.objects.all()
+        for p in w :
+            initial_value += p.Amount
+        return initial_value
+
+            
+    def changelist_view (self,request,extra_content = None):
+        my_context = {'total_debts': self.total_debts}
+        return super(undefined_debts_admin,self).changelist_view(request,my_context)
+
+
+    fieldsets = [
+        ('Name',   {'fields': ['Name']}),
+        ('Date information', {'fields': ['Date'], 'classes':['collapse']}),
+        ('Overall', {'fields':['Amount','Paid','Balance']}),
+        ('situation',{'fields':['situation']}),
+
+    ]
+    inlines = [undefined_debts_situation_inline]
+    list_display = ('Name','Date','situation','clearance','Amount','Paid','Balance')
+    actions = [clearance_updater_1,clearance_updater_2]
+    search_fields = ('Name',)
+
+
+
     
 admin.site.register(debts_in, QuestionAdmin_debts_in )
 admin.site.register(debts_out, Questionadmin_debts_out)
+admin.site.register(undefined_credit, undefined_credit_admin)
+admin.site.register(undefined_debts, undefined_debts_admin)

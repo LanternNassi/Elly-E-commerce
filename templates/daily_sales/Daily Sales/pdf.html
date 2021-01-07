@@ -1,0 +1,66 @@
+<html>
+<body>
+<p>
+  <center><h1><u>ELLY CERAMICS</u></h1></center>
+   <center><h2>Masaka , Buddu Street</h2></center>
+    <center><h3> Tel. 0758989094 , Tel. 0707437906 </h3></center>
+  <p>
+    Invoice no. {{ Sale.id }}</br>
+    Status : Paid </br>
+  
+    <span class="secondary">
+      {{ Sale.Date_sold|date:"M d, Y" }}
+    </span>
+  </p>
+
+  
+
+
+  
+  <div class="tab">
+  <center><h1>Items bought</h1></center>
+  <table class="table">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Unit Price</th>
+        <th>Profit</th>
+        <th>Total Cost</th>
+        
+      </tr>
+    </thead>
+    <tbody>
+      {% for item in Sale.items.all %}
+        <tr class="row{% cycle "1" "2" %}">
+          <td>{{ item.product }}</td>
+          <td class="num">{{ item.Quantity }} </td>
+          <td class="num">x shs.{{ item.Selling_price  }}</td>
+          <td class="num">shs.{{ item.Profit }}</td>
+          <td class="num">shs.{{ item.Total_price }}</td>
+        </tr>
+      {% endfor %}
+      <tr class="total">
+        <td colspan="4">Total</td>
+        <td class="num">shs.{{ Sale.Total_sales}}</td>
+        
+      </tr>
+      
+      <tr class="total">
+        <td colspan="4">Total Profit</td>
+        <td class="num">shs.{{ profit }}</td>
+        
+      </tr>
+      <tr class="total">
+        <td colspan="4">Loss</td>
+        <td class="num">shs.{{ loss }}</td>
+        
+      </tr>
+    </tbody>
+  </table>
+  </div>
+    <div class="mode">
+  
+  </div>
+</body>
+</html>

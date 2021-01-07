@@ -1,0 +1,11 @@
+{% extends "admin/change_form.html" %}
+{% block object-tools-items %}
+{% url 'admin:sale' original.pk as sale_url %}
+{% if sale_url %}
+<li>
+<a href="{{ sale_url }}">View Report</a>
+</li>
+
+{% endif %}
+{{ block.super }}
+{% endblock %}
