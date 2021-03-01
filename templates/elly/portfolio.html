@@ -28,6 +28,7 @@
 
   <!-- Template Main CSS File -->
   <link href="{% static 'site/assets/css/style.css' %}" rel="stylesheet">
+  <link href="{% static 'css/style.css'%} " rel="stylesheet">
 
   <!-- =======================================================
   * Template Name: Serenity - v2.1.0
@@ -45,6 +46,8 @@
 
       <div class="logo mr-auto">
         <h1 class="text-light"><a href="index.html">ELLY CERAMICS</a></h1>
+        
+        
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -59,6 +62,10 @@
           <li><a href="{% url 'pcv' %}">Plumbing</a></li>
           <li><a href="{% url 'tcv'%}">Tiles</a></li>
           <li class="get-started"><a href="#get-started">Admin</a></li>
+          
+          <li class=" icofont-cart" style="padding-top: 15px;"></li><span style="top: 19px; text-align: center; font-size: .6rem; position: absolute; right: 66px; width: 15px; height: 15px; color: #fff; background-color: #418deb; border-radius: 50%;">{{cart|length}}</span>
+          <li class=" icofont-order" style="padding-top: 15px;"></li>
+        
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -77,11 +84,9 @@
           </div>
         </div>
       </div>
-      <div class="container">
-        <ol>
-          <li><a href="index.html">Home</a></li>
-          <li>Portolio</li>
-        </ol>
+      <div class="container" style="display: flex;  flex-wrap: wrap; padding: 49px; width: 75%; margin: left; text-align: center;">
+        <b><h5 style="padding-top: 9px; padding-right: 9px;">SEARCH   </h5></b>
+        <input style = " border-radius: 13px; width: 500px; border: 0.5px solid black;" type="text" value="" placeholder="Search Product">
       </div>
     </section><!-- End Breadcrumbs -->
 
@@ -107,7 +112,7 @@
           {% for pb in plumbing %}
 
           <div class="col-lg-2 col-md-4 col-sm-4 portfolio-item filter-app">
-            <div class="portfolio-wrap">
+            <div class="portfolio-wrap" style="background-color: chartreuse;">
               <img src="{{ pb.image.url }}" class="img-fluid" alt="" >
               <div class="portfolio-info">
                 <h4>{{ pb.Item_Name }}</h4>
@@ -118,6 +123,29 @@
                   <a href="{% url 'item' pk=pb.pk%}" title="More Details"><i class="bx bx-link"></i></a>
                 </div>
               </div>
+            </div>
+            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+               <p><b>{{pb.Item_Name}}</b></p>
+                <p> Quantity: {{ pb.Quantity}} left </p>
+                <p>Price: shs.{{ pb.Selling_price}}</p>
+                <p> 
+                  <div class="stars">
+                    <i class="icofont-star" style="color: #ffc31d;"></i>
+                    <i class="icofont-star" style="color: #ffc31d;"></i>
+                    <i class="icofont-star" style="color: #ffc31d;" ></i>
+                    <i class="icofont-star" style="color: #ffc31d;"></i>
+                    <i class="icofont-star" style="color: #ffc31d;"></i>
+                    <button class="btn btn-danger bt-sm"><span class="icofont-share"></span></button>
+                  </div>
+                </p>
+                <form action="{% url 'cart_add' pb.id %}" method="POST">
+                  {{ cart_product_form }}
+                  {% csrf_token %}
+                  <center>
+                <button class="btn btn-info btn-sm"><span class="icofont-cart"></span><input type="submit"  class="btn btn-info btn-sm" value="Shop Now "></button>
+              </center>
+               </form>
+               
             </div>
           </div>
 
@@ -139,6 +167,33 @@
                 </div>
               </div>
             </div>
+            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+              <p><b>{{tile.Item_Name}}</b></p>
+               <p> Quantity: {{ tile.Quantity}} left </p>
+               <p>Price: shs.{{ tile.Selling_price}}</p>
+               <p> 
+                 <div class="stars">
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;" ></i>
+                   {% if tile.Quantity > 20 %}
+                   <i class="icofont-star"></i>
+                   <i class="icofont-star"></i>
+                   {% else %}
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   {% endif %}
+                    <button class="btn btn-danger bt-sm"><span class="icofont-share"></span></button>
+                 </div>
+                </p>
+               <form action="{% url 'cart_add' tile.id %}" method="POST">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <center>
+               <button class="btn btn-info btn-sm"><span class="icofont-cart"></span><input type="submit"  class="btn btn-info btn-sm" value="Shop Now "></button>
+               </center>
+               </form>
+           </div>
           </div>
 
           {% endfor %}
@@ -157,6 +212,28 @@
                 </div>
               </div>
             </div>
+            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+              <p><b>{{b.Item_Name}}</b></p>
+               <p> Quantity: {{ b.Quantity}} left </p>
+               <p>Price: shs.{{ b.Selling_price}}</p>
+               <p> 
+                 <div class="stars">
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;" ></i>
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                   <i class="icofont-star" style="color: #ffc31d;"></i>
+                    <button class="btn btn-danger bt-sm"><span class="icofont-share"></span></button>
+                 </div>
+               </p>
+               <form action="{% url 'cart_add' b.id %}" method="POST">
+                {{ cart_product_form }}
+                {% csrf_token %}
+                <center>
+               <button class="btn btn-info btn-sm"><span class="icofont-cart"></span><input type="submit"  class="btn btn-info btn-sm" value="Shop Now "></button>
+              </center>
+                </form>
+            
           </div>
 
           {% endfor %}

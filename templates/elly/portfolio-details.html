@@ -111,7 +111,7 @@
               <form action="{% url 'cart_add' stock_solo.id %}" method="POST">
                 {{ cart_product_form }}
                 {% csrf_token %}
-              <button class="btn btn-info btn-sm"><span class="icofont-cart"></span><input type="submit"  class="btn btn-info btn-sm" value="Shop Now "></button>
+              <button class="btn btn-info btn-sm"><span class="icofont-cart"></span><input type="submit"  class="btn btn-info btn-sm" value="Shop Now "></button><button class="btn btn-danger bt-sm"><span class="icofont-share"></span></button>
               </form>
             </div>
           </div>

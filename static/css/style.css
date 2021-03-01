@@ -1,3 +1,13 @@
 .icofont-star {
     color: #ffc31d;
 }
+
+.portfolio-wrap{
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+}
+
+.info{
+    background-color: red;
+}

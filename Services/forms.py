@@ -40,7 +40,7 @@ class service_installer (forms.Form) :
             }
         )
     )
-    profile_pic = forms.ImageField()
+    profile_pic = forms.ImageField( label = 'Profile Picture')
     
 
     

@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from stock.models import stock
 from cart.forms import CartAddProductForm
+from cart.cart import Cart 
 
 # Create your views here.
 
@@ -10,7 +11,11 @@ def catalogue_view (request):
     plumbingf = stock.objects.filter(Category='Plumbing')
     bathroom_accessoriesf = stock.objects.filter(Category='Bathroom accessories')
     tilesf = stock.objects.filter(Category='Tiles')
-    return render(request,'elly/portfolio.html',{'tag':stock_catalogue,'plumbing':plumbingf,'ba':bathroom_accessoriesf,'tiles':tilesf})
+    cart_product_form = CartAddProductForm()
+    cart = Cart(request)
+    for item in cart:
+        item['update_quantity_form'] = CartAddProductForm(initial={'quantity':item['quantity'],'update':True})
+    return render(request,'elly/portfolio.html',{'tag':stock_catalogue,'plumbing':plumbingf,'ba':bathroom_accessoriesf,'tiles':tilesf , 'cart_product_form':cart_product_form , 'cart':cart})
 
 def individual_catalogue_view (request,pk):
     stock_solo = stock.objects.get(pk=pk)
