@@ -58,7 +58,7 @@
           <li><a href="{% url 'catalogue'%}">Catalogue</a></li>
           <li><a href="{% url 'pcv' %}">Plumbing</a></li>
           <li><a href="{% url 'tcv'%}">Tiles</a></li>
-          <li class="get-started"><a href="#get-started">Admin</a></li>
+          <li class="get-started"><a href="{% url 'admin:login'%}">Admin</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -114,8 +114,8 @@
               <li><strong>Category</strong>: Plumber</li>
               <div style="display: inline; padding: 10px;">
               
-                  <a class="btn btn-info btn-lg" href="#"><span class="fa fa-search"></span>Add Picture</a>
-                  <a class="btn btn-info btn-lg" href="#"><span class="fa fa-pencil"></span>Edit Profile</a>
+                  <a class="btn btn-info btn-lg" href="#"><span class="glyphicon glyphicon-picture"></span>Add Picture</a>
+                  <a class="btn btn-info btn-lg" href="{% url 'plumber_editer' id=plumber.pk%}"><span class="glyphicon glyphicon-pencil"></span>Edit Profile</a>
               </div>
             </ul>
           </div>

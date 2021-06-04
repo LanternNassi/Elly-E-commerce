@@ -43,7 +43,43 @@ class service_installer (forms.Form) :
     profile_pic = forms.ImageField( label = 'Profile Picture')
     
 
-    
+class service_editer (forms.Form) :
+    Name = forms.CharField(
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder":"Your Name",
+                "class":"form-control"
+            }
+        )
+    )
+    Contact = forms.CharField(
+        max_length=200,
+        widget=forms.TextInput(
+            attrs={
+                "placeholder":"Your contact please",
+                "class":"form-control"
+            }
+        )
+    )
+    Email = forms.EmailField(
+        max_length=190,
+        widget=forms.EmailInput(
+            attrs={
+                "placeholder":"Email",
+                "class":"form-control"
+            }
+        )
+    )
+    Password = forms.CharField(
+        max_length=10,
+        widget=forms.PasswordInput(
+            attrs={
+                "placeholder":"Password",
+                "class":"form-control",
+            }
+        )
+    )
 
 class login_view_form (forms.Form):
     Name = forms.CharField(

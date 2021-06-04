@@ -44,7 +44,7 @@
     <div class="container d-flex">
 
       <div class="logo mr-auto">
-        <h1 class="text-light"><a href="{% url 'index.html'">ELLY CERAMICS</a></h1>
+        <h1 class="text-light"><a href="{% url 'index'%}">ELLY CERAMICS</a></h1>
         <!-- Uncomment below if you prefer to use an image logo -->
         <!-- <a href="index.html"><img src="assets/img/logo.png" alt="" class="img-fluid"></a>-->
       </div>
@@ -76,7 +76,7 @@
           <li><a href="blog.html">Blog</a></li>
           <li><a href="contact.html">Contact</a></li>
 
-          <li class="get-started"><a href="#get-started">Get Started</a></li>
+          <li class="get-started"><a href="{% url 'admin:login'%}">Get Started</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -118,7 +118,7 @@
 
       {% for item in cart %}
         {% with product=item.product %}
-        <div class="row">
+        <div class="row" style = "display : flex; flex-direction : row; align-items : center;">
           
             <div class="col-lg-2 col-md-2 col-sm-2">
               <a href="{{ product.get_absolute_url }}">
@@ -127,7 +127,7 @@
               </a>
               </div>
             
-            <div class="col-lg-2 col-md-2 col-sm-2">{{ product.Name }}</div>
+            <div class="col-lg-2 col-md-2 col-sm-2">{{ product.Item_Name }}</div>
             <div class="col-lg-2 col-md-2 col-sm-2">
                 <form action="{% url 'cart_add' product.id %}" method="post">
                   {{ item.update_quantity_form.quantity }}
@@ -139,7 +139,8 @@
             <div class="col-lg-2 col-md-2 col-sm-2"><a class="btn btn-danger btn-md" href="{% url 'cart_remove' product.id %}">Remove</a></div>
             <div class="col-lg-2 col-md-2 col-sm-2">shs.{{ item.price }}</div>
             <div class="col-lg-2 col-md-2 col-sm-2">shs.{{ item.total_price }}</div>
-</div>
+        </div>
+
         {% endwith %}
       {% endfor %}
       

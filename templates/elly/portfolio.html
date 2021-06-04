@@ -61,7 +61,7 @@
           <li class = "active"><a href="{% url 'catalogue'%}">Catalogue</a></li>
           <li><a href="{% url 'pcv' %}">Plumbing</a></li>
           <li><a href="{% url 'tcv'%}">Tiles</a></li>
-          <li class="get-started"><a href="#get-started">Admin</a></li>
+          <li class="get-started"><a href="{% url 'admin:login' %}">Admin</a></li>
           
           <li class=" icofont-cart" style="padding-top: 15px;"></li><span style="top: 19px; text-align: center; font-size: .6rem; position: absolute; right: 66px; width: 15px; height: 15px; color: #fff; background-color: #418deb; border-radius: 50%;">{{cart|length}}</span>
           <li class=" icofont-order" style="padding-top: 15px;"></li>
@@ -112,7 +112,7 @@
           {% for pb in plumbing %}
 
           <div class="col-lg-2 col-md-4 col-sm-4 portfolio-item filter-app">
-            <div class="portfolio-wrap" style="background-color: chartreuse;">
+            <div class="portfolio-wrap" style="background-color:; ">
               <img src="{{ pb.image.url }}" class="img-fluid" alt="" >
               <div class="portfolio-info">
                 <h4>{{ pb.Item_Name }}</h4>
@@ -124,7 +124,7 @@
                 </div>
               </div>
             </div>
-            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+            <div class="info" style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; ">
                <p><b>{{pb.Item_Name}}</b></p>
                 <p> Quantity: {{ pb.Quantity}} left </p>
                 <p>Price: shs.{{ pb.Selling_price}}</p>
@@ -167,7 +167,7 @@
                 </div>
               </div>
             </div>
-            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+            <div class="info" style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; ">
               <p><b>{{tile.Item_Name}}</b></p>
                <p> Quantity: {{ tile.Quantity}} left </p>
                <p>Price: shs.{{ tile.Selling_price}}</p>
@@ -203,7 +203,7 @@
             <div class="portfolio-wrap">
               <img src="{{ b.image.url }}" class="img-fluid" alt="">
               <div class="portfolio-info">
-                <h4>{{ b.Item_Name }}</h4>
+                <h4 style="font-size: 3px;">{{ b.Item_Name }}</h4>
                 <p>{{ b.Quantity }} pieces left</p>
                 <p>shs.{{ b.Selling_Price }}</p>
                 <div class="portfolio-links">
@@ -212,7 +212,7 @@
                 </div>
               </div>
             </div>
-            <div class="info" style="display:block; padding: 6px; width: inherit; background-color:honeydew;">
+            <div class="info" style="display: flex; flex-direction: column; justify-content: space-evenly; align-items: center; ">
               <p><b>{{b.Item_Name}}</b></p>
                <p> Quantity: {{ b.Quantity}} left </p>
                <p>Price: shs.{{ b.Selling_price}}</p>
@@ -237,6 +237,8 @@
           </div>
 
           {% endfor %}
+
+
         </div>
 
       </div>

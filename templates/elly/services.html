@@ -58,7 +58,7 @@
           <li><a href="{% url 'catalogue'%}">Catalogue</a></li>
           <li><a href="{% url 'pcv' %}">Plumbing</a></li>
           <li><a href="{% url 'tcv'%}">Tiles</a></li>
-          <li class="get-started"><a href="#get-started">Admin</a></li>
+          <li class="get-started"><a href="{% url 'admin:login'%}">Admin</a></li>
         </ul>
       </nav><!-- .nav-menu -->
 
@@ -107,8 +107,10 @@
 
           <div class="col-lg-2 col-md-3 col-sm-4 portfolio-item filter-app">
             <div class="portfolio-wrap">
+              <div style=" height: 200px; width: 200px;">
 
-              <img src="{{ plumber.profile_pic.url }}" class="img-fluid" alt="" >
+              <img src="{{ plumber.profile_pic.url }}" style=" border-radius : 50%;" class="img-fluid" alt="" >
+            </div>
               <div class="portfolio-info">
                 <h4> {{ plumber.Name }} </h4>
                 <p> {{ plumber.Contact }}</p>
@@ -126,7 +128,9 @@
           {% for tiler in tilers %}
           <div class="col-lg-2 col-md-3 col-sm-4 portfolio-item filter-card">
             <div class="portfolio-wrap">
-              <img src="{{ tiler.profile_pic.url }} " class="img-fluid" alt="">
+              <div  style="  height :200px; width :200px; ">
+              <img src="{{ tiler.profile_pic.url }} " style="border-radius: 50% ;" class="img-fluid" alt="">
+              </div>
               <div class="portfolio-info">
                 <h4> {{ tiler.Name}} </h4>
                 <p>{{ tiler.Contact }}</p>

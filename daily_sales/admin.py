@@ -18,7 +18,7 @@ class product_entry_admin (admin.TabularInline):
     extra = 3
     raw_id_fields = ('product',)
 
-
+# daily sales admin customisation
 class daily_sales_admin (admin.ModelAdmin):
     change_form_template = 'admin/daily_sales/Daily Sales/change_form.htm'
     def get_urls(self):
@@ -32,8 +32,7 @@ class daily_sales_admin (admin.ModelAdmin):
         ]
         return my_urls + urls
 
-   
-
+   # Calculating the daily profits 
     def profits (obj):
         initial_value = 0
         d = product_entry.objects.filter(Day__Day = obj.Day)

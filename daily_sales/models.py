@@ -24,14 +24,14 @@ class daily_sales (models.Model):
         verbose_name_plural='daily sales'
     def __str__(self):
         return self.Day
-    def save(self,*args,**kwargs):
+    def save (self,*args,**kwargs):
+        total = 0
+        todays_products = product_entry.objects.filter(Day__Day=self.Day)
+        for product in todays_products:
+            total += product.Total_price
+        self.Total_sales = total
         super(daily_sales,self).save(*args,**kwargs)
-        inintial_value = 0
-        w = product_entry.objects.filter(Day__Day=self.Day)
-        for p in w :
-            inintial_value += p.Total_price
-        super(daily_sales,self).save(*args,**kwargs)
-        daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)
+
     
 
 
@@ -44,13 +44,20 @@ class product_entry (models.Model):
     Total_price = models.IntegerField(null = True,blank = True)
     Profit = models.IntegerField(null = True, blank = True)
     def save (self,*args,**kwargs):
+        Total_sale = 0
         product_entry.objects.update(Total_price=F('Quantity')*F('Selling_price'))
         super(product_entry,self).save(*args,**kwargs)
         # Updating the profits
-        e = stock.objects.filter(Item_Name = self.product)
+        e = stock.objects.filter(Item_Name = self.product)    
+        
         for w in e :
-            profit = self.Selling_price - w.Cost_price
+            new_stock_item_quantity = w.Quantity - self.Quantity
+            profit = self.Selling_price - w.Cost_price 
+        e.update(Quantity=new_stock_item_quantity )      
         product_entry.objects.filter(product = self.product).update(Profit = self.Quantity*profit)
+        #Updating the stock app
+
+
         # Calculating total sales
         #inintial_value = 0
         #w = product_entry.objects.filter(Day=self.Day)
@@ -59,6 +66,7 @@ class product_entry (models.Model):
         #daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)  
         #super(product_entry,self).save(*args,**kwargs)
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price'))
+        print("finished saving an item")
         
  
     def delete (self,*args,**kwargs):
@@ -69,7 +77,9 @@ class product_entry (models.Model):
         w = product_entry.objects.filter(Day = self.Day)
         for pe in w :
             inintial_value += pe.Total_price
-        daily_sales.objects.filter(Day = self.Day).update(Total_sales=inintial_value)
+        g = daily_sales.objects.get(Day = self.Day__id)
+        g.Total_sales = inintial_value
+        g.save()
         super(product_entry,self).delete(*args,**kwargs)
 
 # ==================================================  END OF DAILY SALES APP SECTION =========================================        
@@ -120,9 +130,16 @@ class Receipt_items (models.Model):
         stock.objects.filter(Item_Name = self.Item ).update(Quantity=remainder)
         # reveryifing the calcualations in the database
         stock.objects.update(overall_price=F('Quantity')*F('Selling_price')) 
-        #adding receipt items to daily sales
-        obj,identifier = daily_sales.objects.get_or_create(Day="Today",Date_sold=date.today())
-        product_entry.objects.create(Day=obj ,product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price=self.Overall_item_price)
+        #adding receipt items to daily sales and calculating total sales in the daily sales app
+        obj,identifier = daily_sales.objects.get_or_create(Day="Today",Approved=False,Date_sold=date.today())
+        product_entry.objects.create(Day=obj ,product=self.Item,Quantity=self.Quantity,Selling_price=self.Selling_price,Total_price= self.Quantity * self.Selling_price)
+        r = daily_sales.objects.filter(Day = "Today")
+        for e in r :
+            initial = e.Total_sales
+            initial += (self.Quantity * self.Selling_price)
+            e.Total_sales=initial
+            e.save()
+        
         super(Receipt_items,self).save(*args,**kwargs)
 
     def delete (self,*args,**kwargs):

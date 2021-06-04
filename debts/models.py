@@ -101,9 +101,13 @@ class situation_out (models.Model):
         # adding the paid money to the daily sales
 
         e = daily_sales.objects.filter(Day = "Today")
-        for p in e :
-            remainder = p.Total_sales + self.Amount_paid
-        daily_sales.objects.filter(Day = "Today").update(Total_sales = remainder )
+        print(e.Date_sold)
+        if e == "0" :
+            pass
+        else :
+            for p in e :
+                remainder = p.Total_sales + self.Amount_paid
+            daily_sales.objects.filter(Day = "Today").update(Total_sales = remainder )
 
         super(situation_out,self).save(*args,**kwargs)    
     
@@ -195,7 +199,8 @@ class undefined_debts (models.Model):
     Balance = models.IntegerField(null = True,blank=True)
     clearance = models.CharField(max_length=1 , choices=clearances)
     situation = models.BooleanField(default=False, editable=True)
-
+    class Meta:
+        verbose_name_plural = "undefined debts"
     
     def __str__(self):
         return self.Name
@@ -231,7 +236,8 @@ class undefined_credit (models.Model):
     situation = models.BooleanField(default=False, editable=True)
     def __str__(self):
         return self.Name
-
+    class Meta:
+        verbose_name_plural = "undefined credits"
 
 class undefined_credit_situation (models.Model):
     Name = models.ForeignKey(undefined_credit,on_delete=models.CASCADE)

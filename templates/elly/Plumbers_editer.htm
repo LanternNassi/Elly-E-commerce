@@ -54,7 +54,7 @@
           <li><a href="{%url 'index'%}">Home</a></li>
           <li><a href="#">About</a></li>                     
           <li><a href="{%url 'bcv'%}">Bathroom</a></li>
-          <li class="active"><a href="{% url 'services' %}">Services</a></li>
+          <li class = "active"><a href="{% url 'services' %}">Services</a></li>
           <li><a href="{% url 'catalogue'%}">Catalogue</a></li>
           <li><a href="{% url 'pcv' %}">Plumbing</a></li>
           <li><a href="{% url 'tcv'%}">Tiles</a></li>
@@ -65,32 +65,49 @@
     </div>
   </header><!-- End Header -->
 
-<div style=" position:relative; top:89px; margin: auto; padding: 29px;">
+<div style=" position:relative; top:89px; margin: auto; padding: 29px; border: 2px;">
 
-  <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-right" >
-    <div class="reply-form">
-        <div style="width: 486px ; position: relative;height: 118px; bottom: 16px;text-align: center;border-top-left-radius: 19px;border-top-right-radius: 19px; padding: 15px; background-color: greenyellow; left: 15px;" >
-            <h2>ELLY CERAMICS</h2>
-            <h5>Login in</h5>
-        </div>
-        <form action="" method="POST">
-            {% csrf_token %}
-            <div class="col-md-8 form-group">
-                {{ form.Name }}
-            </div>
-            <div class="col-md-8 form-group">
-                {{ form.Password }}
-            </div>
-            <div class="text-center"><button type="submit" class="btn btn-primary btn-lg" value="submit" type="submit">Log In</button></div>
-            <ul >
-            <li><p style="text-align: left; left: 15px ;">If you dont have an account,you can <a href="{% url 'service'%}">Sign up</a></p></li>
-        </ul>
-        </form>
-
-      </div>
-    
+  <div class="col-lg-8 mt-5 mt-lg-0" data-aos="fade-left" >
+    <div style="width: auto; position: relative;height: 118px; bottom: 16px;text-align: center;border-top-left-radius: 19px;border-top-right-radius: 19px; padding: 15px; background-color: greenyellow;" >
+      <h2 style="text-align: center;"><b>ELLY CERAMICS </b></h2>
+    <h5 style="text-align: center;">EDIT PROFILE <span class="icofont-pencil"></span></h5>
 
   </div>
+
+    <form action="" enctype="multipart/form-data" method="POST" >
+      {% csrf_token%}
+      {% if msg %}
+      <span class="text-danger"> {{msg}}</span>
+      {% endif %}
+      <div class="form-row">
+        <div class="col-md-6 form-group ">
+          {{ form.Name}}
+          <div class="validate"></div>
+        </div>
+        <div class="col-md-6 form-group">
+          {{ form.Email}}
+          <div class="validate"></div>
+        </div>
+      </div>
+      <div class="form-group">
+        {{ form.Contact}}
+        <div class="validate"></div>
+      </div>
+      <div class="form-group">
+        {{ form.Password }}
+        <div class="validate"></div>
+      </div>
+      
+        
+          <div class="text-center"><button type="submit" class="btn btn-danger btn-lg" value="submit" type="submit">Update profile</button> </div>
+      <ul style="left: 9px;">      
+          <li><p>If you already have an account.<a href="{% url 'service_tiler' %}">Login</a></p></li>
+      </ul>
+      
+    </form>
+
+  </div>
+
 
 </div>
 

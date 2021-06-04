@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
-from Services.forms import service_installer,login_view_form
+from Services.forms import service_installer,login_view_form,service_editer
 from django import forms
 from Services.models import Plumbing_Services,Tiling_Services,images_plumbing,images_tiling
 
@@ -168,26 +168,39 @@ def profile_renderer_plumbing (request,id):
 
 def tiler_editer(request,id):
     information = Tiling_Services.objects.get(id = id)
-    info = {'Name':information.Name , 'Contact':information.Contact , 'Email': information.Email , 'Password':information.Password , 'profile_pic':information.profile_pic}  
+    info = {'Name':information.Name , 'Contact':information.Contact , 'Email': information.Email , 'Password':information.Password }  
     if request.method == "POST" :
-        form = service_installer(request.POST,request.FILES )
+        form = service_editer(request.POST)
         if form.is_valid():
-            initial_pic = information.profile_pic
-            if form.cleaned_data.get("profile_pic") :
-                information.profile_pic = form.cleaned_data.get("profile_pic") 
-                information.save()
-                Tiling_Services.objects.filter(id = id).update(Name=form.cleaned_data.get("Name"),Contact=form.cleaned_data.get("Contact"),Email=form.cleaned_data.get("Email"),Password=form.cleaned_data.get("Password"))
-            else :
-                Tiling_Services.objects.filter(id = id).update(Name=form.cleaned_data.get("Name"),Contact=form.cleaned_data.get("Contact"),Email=form.cleaned_data.get("Email"),Password=form.cleaned_data.get("Password"))
-            
+            Tiling_Services.objects.filter(id = id).update(Name=form.cleaned_data.get("Name"),Contact=form.cleaned_data.get("Contact"),Email=form.cleaned_data.get("Email"),Password=form.cleaned_data.get("Password"))
             username = form.cleaned_data.get("Name")
             Password = form.cleaned_data.get("Password")
-        return render(request,'elly/Tiler_account.html',{'tiler':Tiling_Services.objects.get(Name=username),'Tiler_gallery':images_tiling.objects.filter(Name__Name=username)}) 
+        return render(request,'elly/Tiler_account.html',{'tiler':Tiling_Services.objects.get(Name= username),'Tiler_gallery':images_tiling.objects.filter(Name__Name=username)}) 
             #return redirect("/")
 
     else :  
-        form = service_installer(info)    
+        form = service_editer(info)    
     return render(request,'elly/Tilers_editer.html',{'form':form})
+
+
+
+def plumber_editer(request,id):
+    information = Plumbing_Services.objects.get(id = id)
+    info = {'Name':information.Name , 'Contact':information.Contact , 'Email': information.EMail , 'Password':information.Password }  
+    if request.method == "POST" :
+        form = service_editer(request.POST)
+        if form.is_valid():
+            Plumbing_Services.objects.filter(id = id).update(Name=form.cleaned_data.get("Name"),Contact=form.cleaned_data.get("Contact"),EMail=form.cleaned_data.get("Email"),Password=form.cleaned_data.get("Password"))
+            username = form.cleaned_data.get("Name")
+            Password = form.cleaned_data.get("Password")
+        return render(request,'elly/Tiler_account.html',{'tiler':Plumbing_Services.objects.get(Name=username),'Tiler_gallery':images_tiling.objects.filter(Name__Name=username)}) 
+            #return redirect("/")
+
+    else :  
+        form = service_editer(info)    
+    return render(request,'elly/Tilers_editer.html',{'form':form})
+
+
 
 
             
